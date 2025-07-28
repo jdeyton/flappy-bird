@@ -53,10 +53,14 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Add event listener for player flap
+// Add event listener for player flap and restart
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Space') {
-    game.player.flap();
+    if (game.isGameOver && (Date.now() - game.gameOverTime > 2000)) {
+      game.reset();
+    } else if (!game.isGameOver) {
+      game.player.flap();
+    }
   }
 });
 

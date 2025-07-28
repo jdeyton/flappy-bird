@@ -231,4 +231,50 @@ describe('Game', () => {
       expect(game.isGameOver).to.be.false;
     });
   });
+
+  describe('isGameOver property', () => {
+    it('should set gameOverTime when isGameOver is set to true', () => {
+      const game = new Game();
+      game.gameOverTime = Date.now() - 5000; // Set to a past time
+
+      const beforeSet = Date.now();
+      game.isGameOver = true;
+      const afterSet = Date.now();
+
+      expect(game.gameOverTime).to.be.at.least(beforeSet);
+      expect(game.gameOverTime).to.be.at.most(afterSet);
+    });
+
+    it('should not change gameOverTime when isGameOver is set to false', () => {
+      const game = new Game();
+      const initialGameOverTime = Date.now() - 5000; // Set to a past time
+      game.gameOverTime = initialGameOverTime;
+
+      game.isGameOver = false;
+
+      expect(game.gameOverTime).to.equal(initialGameOverTime);
+    });
+  });
+
+  describe('reset', () => {
+    it('should reset the game state except for high score', () => {
+      const game = new Game();
+      const originalPlayer = game.player;
+      game.pipes.push(new Pipe(game.canvasHeight, game.canvasWidth));
+      game.isGameOver = true;
+      game.score = 10;
+      game.highScore = 20;
+      game.pipeSpawnTimer = 42;
+
+      game.reset();
+
+      expect(game.pipes).to.be.an('array').that.is.empty;
+      expect(game.player).to.be.an.instanceOf(Player);
+      expect(game.player).to.not.equal(originalPlayer);
+      expect(game.isGameOver).to.be.false;
+      expect(game.score).to.equal(0);
+      expect(game.highScore).to.equal(20);
+      expect(game.pipeSpawnTimer).to.equal(0);
+    });
+  });
 });

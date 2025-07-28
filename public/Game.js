@@ -5,12 +5,13 @@ class Game {
   constructor() {
     this.player = new Player();
     this.pipes = [];
-    this.isGameOver = false;
+    this._isGameOver = false;
     this.canvasHeight = 480; // Match the canvas height from index.html
     this.canvasWidth = 854; // Match the canvas width from index.html
     this.pipeSpawnTimer = 0;
     this.score = 0;
     this.highScore = 0;
+    this.gameOverTime = 0; // Timestamp when game ended
   }
 
   update() {
@@ -79,6 +80,26 @@ class Game {
         this.highScore = this.score;
       }
     }
+  }
+
+  reset() {
+    this.player = new Player();
+    this.pipes = [];
+    this.isGameOver = false; // Use the setter here
+    this.pipeSpawnTimer = 0;
+    this.score = 0;
+    // High score persists
+  }
+
+  get isGameOver() {
+    return this._isGameOver;
+  }
+
+  set isGameOver(value) {
+    if (value && !this._isGameOver) {
+      this.gameOverTime = Date.now();
+    }
+    this._isGameOver = value;
   }
 }
 
