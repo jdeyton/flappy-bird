@@ -20,6 +20,9 @@ function drawPlayer() {
 
 // Main game loop (for now, just drawing)
 function gameLoop() {
+  // Update game state
+  player.update();
+
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
