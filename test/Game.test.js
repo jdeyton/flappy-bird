@@ -14,12 +14,14 @@ describe('Game', () => {
     });
   });
 
-  it('should set isGameOver to true if player falls below the screen', () => {
-    const game = new Game();
-    game.player.y = 480; // Set player at the bottom edge of the screen (canvas height)
+  describe('update', () => {
+    it('should set isGameOver to true if player falls below the screen', () => {
+      const game = new Game();
+      game.player.y = 480; // Set player at the bottom edge of the screen (canvas height)
 
-    game.update(); // One update should make it fall below
+      game.update(); // One update should make it fall below
 
-    expect(game.isGameOver).to.be.true;
+      expect(game.isGameOver).to.be.true;
+    });
   });
 });
