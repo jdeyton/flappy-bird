@@ -4,6 +4,8 @@ class Player {
     this.x = 50; // Default starting X position
     this.y = 240; // Default starting Y position (center of 480 height)
     this.velocityY = 0;
+    this.gravity = 0.5; // Default gravity value
+    this.jumpForce = 8; // Default jump force value
   }
 
   flap() {
@@ -11,7 +13,14 @@ class Player {
   }
 
   update() {
-    // To be implemented later
+    this.velocityY += this.gravity;
+    this.y += this.velocityY;
+
+    // Prevent player from going above the screen
+    if (this.y < 0) {
+      this.y = 0;
+      this.velocityY = 0;
+    }
   }
 }
 
