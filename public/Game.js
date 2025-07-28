@@ -32,33 +32,35 @@ class Game {
     this.pipes.forEach(pipe => {
       pipe.update();
     });
-    if (this.pipes.length > 0 && this.pipes[0].isOffscreen()) {
-      this.pipes.shift();
+    // The left-most pipe may be removed or might collide with the player.
+    if (this.pipes.length > 0) {
+      if (this.pipes[0].isOffscreen()) {
+        this.pipes.shift();
+      } else {
+	this.checkCollision();
+      }
     }
-
-    this.checkCollision();
   }
 
   checkCollision() {
-    this.pipes.forEach(pipe => {
-      // Collision with upper pipe
-      if (
-        this.player.x + this.player.radius > pipe.x &&
-        this.player.x - this.player.radius < pipe.x + pipe.width &&
-        this.player.y - this.player.radius < pipe.y
-      ) {
-        this.isGameOver = true;
-      }
+    let pipe = this.pipes[0];
+    // Collision with upper pipe
+    if (
+      this.player.x + this.player.radius > pipe.x &&
+      this.player.x - this.player.radius < pipe.x + pipe.width &&
+      this.player.y - this.player.radius < pipe.y
+    ) {
+      this.isGameOver = true;
+    }
 
-      // Collision with lower pipe
-      if (
-        this.player.x + this.player.radius > pipe.x &&
-        this.player.x - this.player.radius < pipe.x + pipe.width &&
-        this.player.y + this.player.radius > pipe.y + pipe.gap
-      ) {
-        this.isGameOver = true;
-      }
-    });
+    // Collision with lower pipe
+    if (
+      this.player.x + this.player.radius > pipe.x &&
+      this.player.x - this.player.radius < pipe.x + pipe.width &&
+      this.player.y + this.player.radius > pipe.y + pipe.gap
+    ) {
+      this.isGameOver = true;
+    }
   }
 }
 
