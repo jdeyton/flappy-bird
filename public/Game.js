@@ -9,6 +9,8 @@ class Game {
     this.canvasHeight = 480; // Match the canvas height from index.html
     this.canvasWidth = 854; // Match the canvas width from index.html
     this.pipeSpawnTimer = 0;
+    this.score = 0;
+    this.highScore = 0;
   }
 
   update() {
@@ -38,6 +40,7 @@ class Game {
         this.pipes.shift();
       } else {
 	this.checkCollision();
+        this.checkPassedPipe();
       }
     }
   }
@@ -60,6 +63,21 @@ class Game {
       this.player.y + this.player.radius > pipe.y + pipe.gap
     ) {
       this.isGameOver = true;
+    }
+  }
+
+  checkPassedPipe() {
+    if (this.isGameOver) return;
+    let pipe = this.pipes[0];
+    if (pipe.passed) return;
+
+    // Check if pipe has passed the player
+    if (pipe.x + pipe.width < this.player.x - this.player.radius) {
+      pipe.passed = true;
+      this.score++;
+      if (this.score > this.highScore) {
+        this.highScore = this.score;
+      }
     }
   }
 }

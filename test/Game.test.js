@@ -11,6 +11,8 @@ describe('Game', () => {
       expect(game.player).to.be.an.instanceOf(Player);
       expect(game.isGameOver).to.be.false;
       expect(game.pipes).to.be.an('array').that.is.empty;
+      expect(game.score).to.equal(0);
+      expect(game.highScore).to.equal(0);
     });
   });
 
@@ -57,6 +59,91 @@ describe('Game', () => {
       game.update();                                      // Pipe edge is at x = 0.
 
       expect(game.pipes).to.have.lengthOf(0);
+    });
+
+  });
+
+  describe('checkPassedPipe', () => {
+    it('should increment score when a pipe is passed', () => {
+      const game = new Game();
+      game.player = {
+        x: 50,
+        radius: 10
+      };
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = game.player.x - game.player.radius - pipe.width - 1; // Pipe is just past the player
+      game.pipes.push(pipe);
+
+      game.checkPassedPipe();
+
+      expect(game.score).to.equal(1);
+      expect(pipe.passed).to.be.true;
+    });
+
+    it('should update high score if current score is greater', () => {
+      const game = new Game();
+      game.player = {
+        x: 50,
+        radius: 10
+      };
+      game.score = 5;
+      game.highScore = 5;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = game.player.x - game.player.radius - pipe.width - 1; // Pipe is just past the player
+      game.pipes.push(pipe);
+
+      game.checkPassedPipe();
+
+      expect(game.score).to.equal(6);
+      expect(game.highScore).to.equal(6);
+      expect(pipe.passed).to.be.true;
+    });
+
+    it('should not increment score if pipe has already been passed', () => {
+      const game = new Game();
+      game.player = {
+        x: 50,
+        radius: 10
+      };
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = game.player.x - game.player.radius - pipe.width - 1; // Pipe is just past the player
+      pipe.passed = true; // Manually set to passed
+      game.pipes.push(pipe);
+
+      game.checkPassedPipe();
+
+      expect(game.score).to.equal(0); // Score should not increment
+    });
+
+    it('should not increment score if player has not passed the pipe', () => {
+      const game = new Game();
+      game.player = {
+        x: 50,
+        radius: 10
+      };
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = game.player.x + 10; // Pipe is still in front of the player
+      game.pipes.push(pipe);
+
+      game.checkPassedPipe();
+
+      expect(game.score).to.equal(0); // Score should not increment
+    });
+
+    it('should not update score if game is over', () => {
+      const game = new Game();
+      game.isGameOver = true;
+      game.player = {
+        x: 50,
+        radius: 10
+      };
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = game.player.x - game.player.radius - pipe.width - 1; // Pipe is just past the player
+      game.pipes.push(pipe);
+
+      game.checkPassedPipe();
+
+      expect(game.score).to.equal(0); // Score should not increment
     });
   });
 
