@@ -8,5 +8,5 @@ build:
 test:
 	npm test
 
-start:
+start: build
 	node index.js
