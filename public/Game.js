@@ -27,6 +27,15 @@ class Game {
       this.pipes.push(new Pipe(this.canvasHeight, this.canvasWidth));
       this.pipeSpawnTimer = 0;
     }
+
+    // Update pipes.
+    for (let i = this.pipes.length - 1; i >= 0; i--) {
+      this.pipes[i].update();
+      // Remove the first pipe if off screen.
+      if (i == 0 && this.pipes[0].isOffscreen()) {
+        this.pipes.shift();
+      }
+    }
   }
 }
 

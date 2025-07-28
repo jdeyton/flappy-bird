@@ -1,4 +1,3 @@
-
 const { expect } = require('chai');
 const Game = require('../public/Game.js');
 const Player = require('../public/Player.js');
@@ -27,13 +26,11 @@ describe('Game', () => {
 
     it('should add a new pipe when the spawn timer reaches the threshold', () => {
       const game = new Game();
-
-      // Mock the player for this specific test to prevent game over
+      // Mock the player for these tests to prevent game over
       game.player = {
         update: () => {},
         y: 240 // Keep player y within bounds
       };
-
       // Run updates to spawn a pipe
       for (let i = 0; i < 100; i++) {
         game.update();
@@ -41,6 +38,25 @@ describe('Game', () => {
 
       expect(game.pipes).to.have.lengthOf(1);
       expect(game.pipes[0]).to.be.an.instanceOf(Pipe);
+    });
+
+    it('should remove pipes that are offscreen', () => {
+      const game = new Game();
+      // Mock the player for these tests to prevent game over
+      game.player = {
+        update: () => {},
+        y: 240 // Keep player y within bounds
+      };
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      // Position the pipe so it goes offscreen after 2 updates
+      pipe.x = -pipe.width + (2 * Math.abs(pipe.speedX)); // Pipe edge is at x = 6. 
+      game.pipes.push(pipe);
+      game.update();                                      // Pipe edge is at x = 3.
+      expect(game.pipes).to.have.lengthOf(1);
+
+      game.update();                                      // Pipe edge is at x = 0.
+
+      expect(game.pipes).to.have.lengthOf(0);
     });
   });
 });
