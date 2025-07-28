@@ -31,4 +31,22 @@ describe('Pipe', () => {
       expect(pipe.x).to.equal(initialX + pipe.speedX);
     });
   });
+
+  describe('isOffscreen', () => {
+    it('should return true if the pipe is offscreen', () => {
+      const pipe = new Pipe(480, 320);
+
+      pipe.x = -pipe.width;
+
+      expect(pipe.isOffscreen()).to.be.true;
+    });
+
+    it('should return false if the pipe is not offscreen', () => {
+      const pipe = new Pipe(480, 320);
+
+      pipe.x = -pipe.width + 1;
+
+      expect(pipe.isOffscreen()).to.be.false;
+    });
+  });
 });
