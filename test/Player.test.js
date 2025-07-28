@@ -54,4 +54,32 @@ describe('Player', () => {
       expect(player.y).to.equal(yAfterOneUpdate + velocityYAfterOneUpdate + player.gravity);
     });
   });
+
+  describe('flap', () => {
+    it('should set vertical velocity to negative jump force', () => {
+      const player = new Player();
+
+      player.flap();
+
+      expect(player.velocityY).to.equal(-player.jumpForce);
+    });
+
+    it('should reset velocity to negative jump force when flapping while falling', () => {
+      const player = new Player();
+      player.velocityY = 5; // Simulate falling
+
+      player.flap();
+
+      expect(player.velocityY).to.equal(-player.jumpForce);
+    });
+
+    it('should reset velocity to negative jump force when flapping while rising', () => {
+      const player = new Player();
+      player.velocityY = -3; // Simulate rising
+
+      player.flap();
+
+      expect(player.velocityY).to.equal(-player.jumpForce);
+    });
+  });
 });
