@@ -18,6 +18,7 @@ describe('Pipe', () => {
       expect(pipe.speedX).to.equal(-3);
       expect(pipe.y).to.be.at.least(minHeight);
       expect(pipe.y).to.be.at.most(canvasHeight - pipe.gap - minHeight);
+      expect(pipe.passed).to.be.false;
     });
   });
 

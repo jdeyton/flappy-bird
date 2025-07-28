@@ -10,6 +10,7 @@ class Pipe {
 
     // `y` is the position of the bottom edge of the upper pipe.
     this.y = Math.floor(Math.random() * (yMax - yMin) + yMin);
+    this.passed = false;
   }
 
   update() {
