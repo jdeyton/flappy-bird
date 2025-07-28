@@ -59,4 +59,72 @@ describe('Game', () => {
       expect(game.pipes).to.have.lengthOf(0);
     });
   });
+
+  describe('checkCollision', () => {
+    it('should set isGameOver to true if player collides with the left side of the upper pipe', () => {
+      const game = new Game();
+      game.player.x = 50; // Player center x
+      game.player.y = 100; // Player center y
+      game.player.radius = 10;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = 55; // Pipe left edge
+      pipe.width = 30;
+      pipe.y = 110; // Bottom of upper pipe
+      game.pipes.push(pipe);
+
+      game.checkCollision();
+
+      expect(game.isGameOver).to.be.true;
+    });
+
+    it('should set isGameOver to true if player collides with the bottom of the upper pipe', () => {
+      const game = new Game();
+      game.player.x = 100; // Player center x
+      game.player.y = 100; // Player center y
+      game.player.radius = 10;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = 90; // Pipe left edge
+      pipe.width = 30;
+      pipe.y = 95; // Bottom of upper pipe
+      game.pipes.push(pipe);
+
+      game.checkCollision();
+
+      expect(game.isGameOver).to.be.true;
+    });
+
+    it('should set isGameOver to true if player collides with the left side of the lower pipe', () => {
+      const game = new Game();
+      game.player.x = 50; // Player center x
+      game.player.y = 200; // Player center y
+      game.player.radius = 10;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = 55; // Pipe left edge
+      pipe.width = 30;
+      pipe.y = 100; // Bottom of upper pipe
+      pipe.gap = 50; // Gap size
+      game.pipes.push(pipe);
+
+      game.checkCollision();
+
+      expect(game.isGameOver).to.be.true;
+    });
+
+    it('should set isGameOver to true if player collides with the top of the lower pipe', () => {
+      const game = new Game();
+      game.player.x = 100; // Player center x
+      game.player.y = 160; // Player center y
+      game.player.radius = 10;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = 90; // Pipe left edge
+      pipe.width = 30;
+      pipe.y = 145; // Bottom of upper pipe
+      pipe.gap = 20; // Gap size
+      game.pipes.push(pipe);
+
+      game.checkCollision();
+
+      expect(game.isGameOver).to.be.true;
+    });
+  });
 });

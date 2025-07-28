@@ -35,6 +35,30 @@ class Game {
     if (this.pipes.length > 0 && this.pipes[0].isOffscreen()) {
       this.pipes.shift();
     }
+
+    this.checkCollision();
+  }
+
+  checkCollision() {
+    this.pipes.forEach(pipe => {
+      // Collision with upper pipe
+      if (
+        this.player.x + this.player.radius > pipe.x &&
+        this.player.x - this.player.radius < pipe.x + pipe.width &&
+        this.player.y - this.player.radius < pipe.y
+      ) {
+        this.isGameOver = true;
+      }
+
+      // Collision with lower pipe
+      if (
+        this.player.x + this.player.radius > pipe.x &&
+        this.player.x - this.player.radius < pipe.x + pipe.width &&
+        this.player.y + this.player.radius > pipe.y + pipe.gap
+      ) {
+        this.isGameOver = true;
+      }
+    });
   }
 }
 
