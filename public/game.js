@@ -21,6 +21,17 @@ function drawPlayer() {
 }
 
 // Main game loop (for now, just drawing)
+function drawPipes() {
+  game.pipes.forEach(pipe => {
+    // Upper pipe
+    ctx.fillStyle = 'green';
+    ctx.fillRect(pipe.x, 0, pipe.width, pipe.y);
+    // Lower pipe
+    ctx.fillRect(pipe.x, pipe.y + pipe.gap, pipe.width, canvas.height - (pipe.y + pipe.gap));
+  });
+}
+
+// Main game loop (for now, just drawing)
 function gameLoop() {
   // Update game state
   game.update();
@@ -28,8 +39,8 @@ function gameLoop() {
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw the player
   drawPlayer();
+  drawPipes();
 
   requestAnimationFrame(gameLoop);
 }
