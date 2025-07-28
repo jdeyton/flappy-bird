@@ -2,6 +2,7 @@
 const { expect } = require('chai');
 const Game = require('../public/Game.js');
 const Player = require('../public/Player.js');
+const Pipe = require('../public/Pipe.js');
 
 describe('Game', () => {
   describe('constructor', () => {
@@ -22,6 +23,24 @@ describe('Game', () => {
       game.update(); // One update should make it fall below
 
       expect(game.isGameOver).to.be.true;
+    });
+
+    it('should add a new pipe when the spawn timer reaches the threshold', () => {
+      const game = new Game();
+
+      // Mock the player for this specific test to prevent game over
+      game.player = {
+        update: () => {},
+        y: 240 // Keep player y within bounds
+      };
+
+      // Run updates to spawn a pipe
+      for (let i = 0; i < 100; i++) {
+        game.update();
+      }
+
+      expect(game.pipes).to.have.lengthOf(1);
+      expect(game.pipes[0]).to.be.an.instanceOf(Pipe);
     });
   });
 });
