@@ -3,10 +3,15 @@
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext('2d');
 
+// Import the Player class (this will be handled by the browser's module system or script order)
+// For now, we assume Player is globally available due to script order in index.html
+
+const Game = require('./Game.js');
+
 // Create a new Game instance
 const game = new Game();
 
-// Function to draw the player (currently a circle)
+// Function to draw the player
 function drawPlayer() {
   ctx.beginPath();
   ctx.arc(game.player.x, game.player.y, 10, 0, Math.PI * 2);

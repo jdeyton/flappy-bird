@@ -1,4 +1,6 @@
 
+const Player = require('./Player.js');
+
 class Game {
   constructor() {
     this.player = new Player();
@@ -17,3 +19,7 @@ class Game {
     }
   }
 }
+
+module.exports = Game;
+
+

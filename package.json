@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "browserify public/game.js -o dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "browserify": "^17.0.1",
     "chai": "^5.2.1",
     "mocha": "^11.7.1",
     "supertest": "^7.1.3"
