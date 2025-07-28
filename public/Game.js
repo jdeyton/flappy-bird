@@ -29,12 +29,11 @@ class Game {
     }
 
     // Update pipes.
-    for (let i = this.pipes.length - 1; i >= 0; i--) {
-      this.pipes[i].update();
-      // Remove the first pipe if off screen.
-      if (i == 0 && this.pipes[0].isOffscreen()) {
-        this.pipes.shift();
-      }
+    this.pipes.forEach(pipe => {
+      pipe.update();
+    });
+    if (this.pipes.length > 0 && this.pipes[0].isOffscreen()) {
+      this.pipes.shift();
     }
   }
 }
