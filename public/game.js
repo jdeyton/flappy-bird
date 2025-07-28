@@ -32,6 +32,13 @@ function drawPipes() {
 }
 
 // Main game loop (for now, just drawing)
+function drawScores() {
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText(`High Score: ${game.highScore}`, 10, 30);
+  ctx.fillText(`Current Score: ${game.score}`, 10, 60);
+}
+
 function gameLoop() {
   // Update game state
   game.update();
@@ -41,6 +48,7 @@ function gameLoop() {
 
   drawPlayer();
   drawPipes();
+  drawScores();
 
   requestAnimationFrame(gameLoop);
 }
