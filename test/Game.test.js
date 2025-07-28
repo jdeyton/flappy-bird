@@ -126,5 +126,22 @@ describe('Game', () => {
 
       expect(game.isGameOver).to.be.true;
     });
+
+    it('should not set isGameOver to true if player is in the gap', () => {
+      const game = new Game();
+      game.player.x = 100; // Player center x
+      game.player.y = 150; // Player center y
+      game.player.radius = 10;
+      const pipe = new Pipe(game.canvasHeight, game.canvasWidth);
+      pipe.x = 90; // Pipe left edge
+      pipe.width = 30;
+      pipe.y = 150 - 11 ; // Bottom of upper pipe
+      pipe.gap = 21; // Gap size, just bigger than player
+      game.pipes.push(pipe);
+
+      game.checkCollision();
+
+      expect(game.isGameOver).to.be.false;
+    });
   });
 });
