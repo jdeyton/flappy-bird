@@ -15,6 +15,10 @@ class Pipe {
   update() {
     this.x += this.speedX;
   }
+
+  isOffscreen() {
+    return this.x + this.width <= 0;
+  }
 }
 
 module.exports = Pipe;
