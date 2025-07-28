@@ -14,7 +14,7 @@ const game = new Game();
 // Function to draw the player
 function drawPlayer() {
   ctx.beginPath();
-  ctx.arc(game.player.x, game.player.y, 10, 0, Math.PI * 2);
+  ctx.arc(game.player.x, game.player.y, game.player.radius, 0, Math.PI * 2);
   ctx.fillStyle = 'red';
   ctx.fill();
   ctx.closePath();
