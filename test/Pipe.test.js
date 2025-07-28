@@ -11,11 +11,11 @@ describe('Pipe', () => {
     const pipe = new Pipe(canvasHeight, canvasWidth);
 
     const minHeight = 50;
-    expect(pipe.width).toBe(80);
-    expect(pipe.gap).toBe(200);
-    expect(pipe.x).toBe(canvasWidth);
-    expect(pipe.speedX).toBe(-3);
-    expect(pipe.y).toBeGreaterThanOrEqual(minHeight);
-    expect(pipe.y).toBeLessThanOrEqual(canvasHeight - pipe.gap - minHeight);
+    expect(pipe.width).to.equal(80);
+    expect(pipe.gap).to.equal(200);
+    expect(pipe.x).to.equal(canvasWidth);
+    expect(pipe.speedX).to.equal(-3);
+    expect(pipe.y).to.be.at.least(minHeight);
+    expect(pipe.y).to.be.at.most(canvasHeight - pipe.gap - minHeight);
   });
 });
