@@ -34,5 +34,12 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
+// Add event listener for player flap
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Space') {
+    game.player.flap();
+  }
+});
+
 // Start the game loop
 gameLoop();

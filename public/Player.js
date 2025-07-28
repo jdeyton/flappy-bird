@@ -9,7 +9,7 @@ class Player {
   }
 
   flap() {
-    // To be implemented later
+    this.velocityY = -this.jumpForce;
   }
 
   update() {
