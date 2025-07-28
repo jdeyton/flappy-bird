@@ -4,6 +4,7 @@ const Player = require('./Player.js');
 class Game {
   constructor() {
     this.player = new Player();
+    this.pipes = [];
     this.isGameOver = false;
     this.canvasHeight = 480; // Match the canvas height from index.html
   }

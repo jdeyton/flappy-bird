@@ -4,11 +4,14 @@ const Game = require('../public/Game.js');
 const Player = require('../public/Player.js');
 
 describe('Game', () => {
-  it('should initialize with a player and game not over', () => {
-    const game = new Game();
+  describe('constructor', () => {
+    it('should initialize with a player, empty pipes array, and game not over', () => {
+      const game = new Game();
 
-    expect(game.player).to.be.an.instanceOf(Player);
-    expect(game.isGameOver).to.be.false;
+      expect(game.player).to.be.an.instanceOf(Player);
+      expect(game.isGameOver).to.be.false;
+      expect(game.pipes).to.be.an('array').that.is.empty;
+    });
   });
 
   it('should set isGameOver to true if player falls below the screen', () => {
