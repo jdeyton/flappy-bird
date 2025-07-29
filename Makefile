@@ -1,6 +1,9 @@
 .PHONY: all test start build docker up
 
-all: build
+all: install build
+
+install:
+	npm ci
 
 build:
 	npm run build
@@ -19,7 +22,7 @@ up: docker
 	-docker rm flappy-bird-container
 	docker run -d -p 3000:3000 --name flappy-bird-container flappy-bird
 
-stop:
+down:
 	-docker stop flappy-bird-container
 	-docker rm flappy-bird-container
 
